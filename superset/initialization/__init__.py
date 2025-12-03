@@ -152,6 +152,7 @@ class SupersetAppInitializer:  # pylint: disable=too-many-public-methods
         from superset.advanced_data_type.api import AdvancedDataTypeRestApi
         from superset.annotation_layers.annotations.api import AnnotationRestApi
         from superset.annotation_layers.api import AnnotationLayerRestApi
+        from superset.announcements.api import AnnouncementRestApi
         from superset.async_events.api import AsyncEventsRestApi
         from superset.available_domains.api import AvailableDomainsRestApi
         from superset.cachekeys.api import CacheRestApi
@@ -237,6 +238,7 @@ class SupersetAppInitializer:  # pylint: disable=too-many-public-methods
         #
         appbuilder.add_api(AnnotationRestApi)
         appbuilder.add_api(AnnotationLayerRestApi)
+        appbuilder.add_api(AnnouncementRestApi)
         appbuilder.add_api(AsyncEventsRestApi)
         appbuilder.add_api(AdvancedDataTypeRestApi)
         appbuilder.add_api(AvailableDomainsRestApi)

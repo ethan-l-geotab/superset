@@ -32,6 +32,7 @@ import {
   MenuObjectProps,
   MenuData,
 } from 'src/types/bootstrapTypes';
+import { MaintenanceAlert } from 'src/features/announcements';
 import RightMenu from './RightMenu';
 import { NAVBAR_MENU_POPUP_OFFSET } from './commonMenuData';
 
@@ -321,6 +322,7 @@ export function Menu({
     return <>{link}</>;
   };
   return (
+    <>
     <StyledHeader className="top" id="main-menu" role="navigation">
       <StyledRow>
         <StyledCol md={16} xs={24}>
@@ -374,6 +376,8 @@ export function Menu({
         </Col>
       </StyledRow>
     </StyledHeader>
+    <MaintenanceAlert />
+  </>
   );
 }
 

@@ -44,6 +44,7 @@ import {
 import { RootState } from 'src/dashboard/types';
 import DatabaseModal from 'src/features/databases/DatabaseModal';
 import UploadDataModal from 'src/features/databases/UploadDataModel';
+import { MaintenanceAlertModal } from 'src/features/announcements';
 import { uploadUserPerms } from 'src/views/CRUD/utils';
 import { useThemeContext } from 'src/theme/ThemeProvider';
 import { useThemeMenuItems } from 'src/hooks/useThemeMenuItems';
@@ -127,6 +128,8 @@ const RightMenu = ({
   const [showExcelUploadModal, setShowExcelUploadModal] =
     useState<boolean>(false);
   const [showColumnarUploadModal, setShowColumnarUploadModal] =
+    useState<boolean>(false);
+  const [showAnnouncementModal, setShowAnnouncementModal] =
     useState<boolean>(false);
   const [engine, setEngine] = useState<string>('');
   const canSql = findPermission('can_sqllab', 'Superset', roles);
@@ -471,6 +474,26 @@ const RightMenu = ({
         }
       });
 
+      // Add Admin section for admin users
+      if (isAdmin) {
+        items.push({ type: 'divider', key: 'admin-divider' });
+
+        const adminItems: MenuItem[] = [
+          {
+            key: 'banner',
+            label: t('Banner'),
+            onClick: () => setShowAnnouncementModal(true),
+          },
+        ];
+
+        items.push({
+          type: 'group',
+          label: t('Admin'),
+          key: 'admin-section',
+          children: adminItems,
+        });
+      }
+
       if (!navbarRight.user_is_anonymous) {
         items.push({ type: 'divider', key: 'user-divider' });
 
@@ -631,6 +654,12 @@ const RightMenu = ({
           show={showColumnarUploadModal}
           allowedExtensions={COLUMNAR_EXTENSIONS}
           type="columnar"
+        />
+      )}
+      {isAdmin && (
+        <MaintenanceAlertModal
+          onHide={setShowAnnouncementModal}
+          showAlertModal={showAnnouncementModal}
         />
       )}
       {environmentTag?.text &&
